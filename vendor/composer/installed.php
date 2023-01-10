@@ -439,6 +439,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'laravel/ui' => array(
+            'pretty_version' => 'v3.4.6',
+            'version' => '3.4.6.0',
+            'reference' => '65ec5c03f7fee2c8ecae785795b829a15be48c2c',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/ui',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'league/commonmark' => array(
             'pretty_version' => '2.3.8',
             'version' => '2.3.8.0',

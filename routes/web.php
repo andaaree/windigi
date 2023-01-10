@@ -28,3 +28,6 @@ Route::get('/plans/{plan}',[PlanController::class,'proc']);
 Route::get('/keys/all',[KeyController::class,'data']);
 Route::get('/plans/all',[PlanController::class,'data']);
 Route::get('/combine/all',[Dashboard::class,'data']);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
