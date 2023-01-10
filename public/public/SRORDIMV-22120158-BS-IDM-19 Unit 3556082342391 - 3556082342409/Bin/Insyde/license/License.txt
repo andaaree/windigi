@@ -1,3 +1,0 @@
-This program contains software that is copyrighted by Insyde Software and/or other third parties.  It is protected both by license agreements and by law.  You may not copy, reproduce, modify or otherwise distribute this program other than as is allowed under the license agreement between you and your device manufacturer.  Neither can this program be used other than with Insyde Software’s software programs.
-
-本程式包含系微及/或其他第三人的軟體著作權。本軟體著作權受有授權合約及法律的保護。您不得超過您與您的設備製造商間的授權合約的許可範圍複製、重製、修改或散布本程式，也不得和非系微的軟體結合使用本程式。
