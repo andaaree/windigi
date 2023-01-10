@@ -104,13 +104,17 @@ class PlanController extends Controller
 
         $files = Storage::disk('public')->allFiles("$srord/LogSNCasing/");
         foreach ($files as $k) {
+            $fn = explode('/', $k);
+            $fn = end($fn);
+            $fn = str_replace(".txt","",$fn);
+
             $fl = Storage::get("public/$k");
             // debug
             $a = explode("\r\n", $fl);
 
             $plan = new Plan;
             $plan->plan_id = $srord;
-            $plan->sn_casing = trim($a[0], " ");
+            $plan->sn_casing = $fn;
             $plan->p_key_id = trim($a[2], " ");
             $plan->save();
             if ($plan->save()) {
