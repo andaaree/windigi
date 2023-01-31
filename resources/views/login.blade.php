@@ -8,7 +8,7 @@
   <link href="/assets/login/gear.png" rel="icon">
   <link href="/assets/login/gear.png" rel="apple-touch-icon">
 
-  <title>Login Admin Gear</title>
+  <title>Login - WDT (Windows Digital Tracker)</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -97,7 +97,7 @@
       line-height: 42px;
       text-align: center;
       color: #1f1f1f;
-      margin: 40px 0;
+      margin: 20px 0;
     }
     .logo {
       text-align: center;
@@ -117,15 +117,15 @@
     <div class="shape"></div>
   </div>
 
-  <form action="/login" method="post">
+  <form action="{{ route('login') }}" method="post">
     <div class="logo">
       <img src="gear.png" alt="" height="80px" width="auto">
     </div>
-    
+    <h3>Windows Digital Tracker</h3>
     <h3>Login</h3>
-
     <div class="input-group mb-3">
-      <input name="username" type="text" class="form-control" placeholder="Username" autocomplete="username">
+      @csrf
+      <input name="username" type="text" class="form-control" placeholder="Username" autofocus autocomplete="username">
       <div class="input-group-append">
         <div class="input-group-text">
           <span class="fas fa-user"></span>

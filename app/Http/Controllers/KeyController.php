@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use stdClass;
 use ZipArchive;
 use App\Models\Key;
-use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
@@ -22,19 +21,25 @@ class KeyController extends Controller
      */
     public function index()
     {
-        return view('plans.index');
+        $log = file_get_contents(storage_path('logs/sp.log'));
+        $log = explode("\n",$log);
+        $log = array_reverse($log,true);
+        return view('keys.index',compact('log'));
     }
 
     public function coba()
     {
-        $spord = "SSORDIMV-22120136";
+        $spord = "SSORDIMV-22100240";
         $ar = [];
         $files = Storage::disk('public')->allFiles("$spord/LogSNCasing/");
         foreach ($files as $k) {
             $fl = Storage::get("public/$k");
             $a = explode("\r\n", $fl);
             // debug 
-
+            $fn = explode('/', $k);
+            $fn = end($fn);
+            $fn = str_replace(".txt","",$fn);
+            array_push($ar,$fn);
             // $key = new Key;
             // $key->bundle_id = $spord;
             // $key->p_key = $a['ProductKey'];
@@ -50,7 +55,7 @@ class KeyController extends Controller
     {
         $keys = Key::all();
 
-        return DataTables::eloquent($keys)
+        return DataTables::of($keys)
             ->addIndexColumn()
             ->setRowId('id')
             ->toJson();
@@ -143,17 +148,26 @@ class KeyController extends Controller
             $json = json_encode($xml);
             $a = json_decode($json, TRUE);
 
-            $key = new Key;
-            $key->bundle_id = $spord;
-            $key->p_key = $a['ProductKey'];
-            $key->p_key_id = $a['ProductKeyID'];
-            if ($key->save()) {
-                $res->message = "success";
+            $ky = new Key;
+            $ky->bundle_id = $spord;
+            $ky->p_key = $a['ProductKey'];
+            $ky->p_key_id = $a['ProductKeyID'];
+
+            try {
+                $ky->save();
+                $res->status = "success";
+                $res->message = "Key saved";
+            } catch (\Throwable $e) {
+                \Log::channel('snlog')
+                ->info("SPO $spord save error")
+                ->info(end($e->errorInfo));
+                $res->status = "error";
+                $res->message = end($e->errorInfo);
             }
         }
-
+        
         Storage::delete($path.$key);
-        return redirect('keys')->with('success',$res);
+        return redirect('keys')->with($res->status,json_encode($res));
     }
 
     /**
@@ -164,7 +178,7 @@ class KeyController extends Controller
      */
     public function show(Key $key)
     {
-        
+        //
     }
 
     /**
@@ -198,6 +212,17 @@ class KeyController extends Controller
      */
     public function destroy(Key $key)
     {
-        //
+        $res = new stdClass;
+        try {
+            $key->delete();
+
+            $res->status = "success";
+            $res->message = "$key->bundle_id deleted!";
+        } catch (\Throwable $th) {
+            $res->status = "success";
+            $res->message = end($th->errorInfo);
+        }
+
+        return response()->json($res);
     }
 }

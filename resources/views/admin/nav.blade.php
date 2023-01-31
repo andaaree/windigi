@@ -37,61 +37,42 @@
                 <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="/admin" class="nav-link @if (request()->segment(count(request()->segments())) == 'admin') {{'active'}} @endif">
+                    <a href="/" class="nav-link @if (request()->segment(count(request()->segments())) == '') {{'active'}} @endif">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
                             Dashboard
                         </p>
                     </a>
                 </li>
-                {{-- @if (Auth::user()->role < 2)
-                <li class="nav-header">Administrasi User</li>
+                <li class="nav-header">Keys Menu</li>
+                @if (Auth::user()->role < 1)
                 <li class="nav-item">
-                    <a href="/admin/user" class="nav-link @if (Request::segment(2) == 'user') {{'active'}} @endif">
+                    <a href="/users" class="nav-link @if (request()->segment(count(request()->segments())) == 'users') {{'active'}} @endif">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             User
                         </p>
                     </a>
                 </li>
-                @endif
-                @if(Auth::user()->role < 1)
-                <li class="nav-header">Administrasi Sekolah</li>
                 <li class="nav-item">
-                    <a href="/admin/jurusan" class="nav-link @if (Request::segment(2) == 'jurusan') {{'active'}} @endif">
-                        <i class="nav-icon fas fa-flask"></i>
+                    <a href="/keys" class="nav-link @if (request()->segment(count(request()->segments())) == 'keys') {{'active'}} @endif">
+                        <i class="nav-icon fas fa-key"></i>
                         <p>
-                            Jurusan
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/mapel" class="nav-link @if (Request::segment(2) == 'mapel') {{'active'}} @endif">
-                        <i class="nav-icon fas fa-atlas"></i>
-                        <p>
-                            Mata Pelajaran
+                            Key Stock
                         </p>
                     </a>
                 </li>
                 @endif
-                <li class="nav-header">Administrasi Buku</li>
+                @if (Auth::user()->role < 2)
                 <li class="nav-item">
-                    <a href="/admin/buku" class="nav-link @if (Request::segment(2) == 'buku') {{'active'}} @endif">
-                        <i class="nav-icon fas fa-book"></i>
+                    <a href="/plans" class="nav-link @if (request()->segment(count(request()->segments())) == 'plans') {{'active'}} @endif">
+                        <i class="nav-icon fas fa-lock"></i>
                         <p>
-                            Buku
+                            Consumed Keys
                         </p>
                     </a>
                 </li>
-
-                <li class="nav-item">
-                    <a href="/admin/video" class="nav-link @if (Request::segment(2) == 'video') {{'active'}} @endif">
-                        <i class="nav-icon fas fa-play"></i>
-                        <p>
-                            Video
-                        </p>
-                    </a>
-                </li> --}}
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

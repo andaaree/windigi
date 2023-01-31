@@ -19,14 +19,13 @@ class SuperMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (Auth::user()->role >= 1) {
+            $res = new stdClass;
+            $res->title = "Error";
+            $res->message = "Access denied!";
             if ($request->wantsJson()) {
-                $res = new stdClass;
-                $res->title = "Error";
-                $res->message = "Access denied!";
                 return response()->json($res,500);
-            }else{
-                return back();
             }
+            return redirect('/')->with("error",json_encode($res));
         }
         return $next($request);
     }

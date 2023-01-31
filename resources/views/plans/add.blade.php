@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 @extends('/admin/body')
-@section('title', 'Admin - Tambah Plan')
+@section('title', 'Consume Key - WDT (Windows Digital Tracker)')
 @section('ext-css')
 <!-- Select2 -->
 <link rel="stylesheet" href="/assets/adminlte/plugins/select2/css/select2.min.css">
@@ -13,13 +13,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h3 class="display-4">Tambah Plan</h3>
+                <h3 class="display-4">Consume Key</h3>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-                    <li class="breadcrumb-item"><a href="/plans">Plan</a></li>
-                    <li class="breadcrumb-item">Tambah Plan</li>
+                    <li class="breadcrumb-item"><a href="/plans">Consumed Keys</a></li>
+                    <li class="breadcrumb-item">Consume Key</li>
                 </ol>
             </div>
         </div>
@@ -48,7 +48,7 @@
                 <!-- general form elements -->
                 <div class="card card-dark">
                     <div class="card-header">
-                        <h3 class="card-title">Tambah Plan</h3>
+                        <h3 class="card-title">Consume Key</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -56,11 +56,11 @@
                         <div class="row mt-3">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="ct-file">Plan File</label>
+                                    <label for="ct-file">Key File</label>
                                     <div class="input-group mb-3">
                                         <div class="custom-file">
                                             <input name="file" type="file" class="custom-file-input" value="{{old('file')}}" id="ct-file" accept=".zip">
-                                            <label class="custom-file-label" for="ct-file" aria-describedby="ct-file-desc">Choose Plan</label>
+                                            <label class="custom-file-label" for="ct-file" aria-describedby="ct-file-desc">Choose Keys</label>
                                         </div>
                                         <div class="input-group-append">
                                             <span class="input-group-text" id="ct-file-desc">Upload</span>
@@ -80,7 +80,7 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <a href="" id="save-file" type="submit" class="btn btn-dark">Save</a>
+                        <a href="" id="save-file" type="submit" class="btn btn-dark">Consume</a>
                     </div>
                 </div>
 

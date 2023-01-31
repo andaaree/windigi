@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Favicons -->
-    <link href="/assets/perpus/assets/img/perpus.png" rel="icon">
-    <link href="/assets/perpus/assets/img/perpus.png" rel="apple-touch-icon">
+  <link href="/assets/login/gear.png" rel="icon">
+  <link href="/assets/login/gear.png" rel="apple-touch-icon">
     
     @yield('csrf-ajax')
     @yield('seo')

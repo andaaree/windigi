@@ -7,6 +7,7 @@ use ZipArchive;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 use Pion\Laravel\ChunkUpload\Exceptions\UploadMissingFileException;
@@ -20,7 +21,20 @@ class PlanController extends Controller
      */
     public function index()
     {
-        //
+        $log = file_get_contents(storage_path('logs/sn.log'));
+        $log = explode("\n",$log);
+        $log = array_reverse($log,true);
+        return view('plans.index',compact('log'));
+    }
+
+    public function data()
+    {
+        $plans = Plan::all();
+
+        return DataTables::of($plans)
+            ->addIndexColumn()
+            ->setRowId('id')
+            ->toJson();
     }
 
     /**
@@ -88,6 +102,11 @@ class PlanController extends Controller
         ];
     }
 
+    public function snlog()
+    {
+
+    }
+
     public function proc($plan)
     {
         $res = new stdClass;
@@ -103,7 +122,7 @@ class PlanController extends Controller
         $zipz->close();
 
         $files = Storage::disk('public')->allFiles("$srord/LogSNCasing/");
-        foreach ($files as $k) {
+        foreach ($files as $l => $k) {
             $fn = explode('/', $k);
             $fn = end($fn);
             $fn = str_replace(".txt","",$fn);
@@ -112,18 +131,31 @@ class PlanController extends Controller
             // debug
             $a = explode("\r\n", $fl);
 
-            $plan = new Plan;
-            $plan->plan_id = $srord;
-            $plan->sn_casing = $fn;
-            $plan->p_key_id = trim($a[2], " ");
-            $plan->save();
-            if ($plan->save()) {
-                $res->message = "success";
+            try {
+                $pl = new Plan;
+                $pl->plan_id = $srord;
+                $pl->sn_casing = $fn;
+                $pl->p_key_id = trim($a[2], " ");
+                $pl->save();
+
+                $res->title = "Success";
+                $res->message = "Key consumed";
+
+            } catch (\Throwable $e) {
+                
+                $log = \Log::channel('snlog');
+
+                $res->title = "Error";
+                $res->message = $e;
+
+                $log->info("SN $fn save error");
+                $log->info(end($e->errorInfo));
             }
         }
 
-        Storage::delete($path.$plan);
-        return redirect('plans')->with('success',$res);
+        // return $res;
+        Storage::delete("public/".$plan);
+        return redirect('plans')->with('success',json_encode($res));
     }
 
     /**

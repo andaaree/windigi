@@ -40,6 +40,8 @@
                 <i class="far fa-user"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <a href="/users" class="dropdown-item">Profile</a>
+                <div class="dropdown-divider"></div>
                 <form action="{{'/logout'}}" method="POST">
                     @csrf
                     <button class="btn btn-link dropdown-item" type="submit"><i class="fas fa-lock mr-1"></i> Log out</button>
