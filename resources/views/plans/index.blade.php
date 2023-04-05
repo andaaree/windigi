@@ -39,6 +39,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Plan ID</th>
+                                    <th>Product Key</th>
                                     <th>Product Key ID</th>
                                     <th>SN Casing</th>
                                     <th>Aksi</th>
@@ -115,6 +116,10 @@
                 {
                     data: "plan_id",
                     name: "plan_id"
+                },
+                {
+                    data: "keys.p_key",
+                    name: "keys.p_key"
                 },
                 {
                     data: "p_key_id",

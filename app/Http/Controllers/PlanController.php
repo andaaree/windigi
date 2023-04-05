@@ -29,7 +29,7 @@ class PlanController extends Controller
 
     public function data()
     {
-        $plans = Plan::all();
+        $plans = Plan::with('keys');
 
         return DataTables::of($plans)
             ->addIndexColumn()
